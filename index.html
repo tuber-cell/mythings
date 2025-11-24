@@ -3,203 +3,663 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accident Video Viewer</title>
+    <title>Hope for Palestine - Donate via UPI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
+        :root {
+            --primary: #2c786c;
+            --secondary: #004445;
+            --accent: #f8b500;
+            --light: #faf5e4;
+            --dark: #333;
+        }
+
         body {
-            background-color: #0f0f0f;
-            color: #ffffff;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
+            background-color: #f9f9f9;
+            color: var(--dark);
+            line-height: 1.6;
         }
-        
+
         header {
-            background-color: #000000;
-            padding: 15px 30px;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #222222;
         }
-        
+
         .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #ff0000;
-        }
-        
-        .video-container {
-            flex: 1;
+            font-size: 1.8rem;
+            font-weight: 700;
             display: flex;
-            justify-content: center;
             align-items: center;
-            padding: 20px;
-            position: relative;
         }
-        
-        .video-player {
-            width: 100%;
-            max-width: 1200px;
-            aspect-ratio: 16/9;
-            background-color: #000000;
-            border-radius: 8px;
+
+        .logo i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 25px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent);
+        }
+
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1586810724473-c33f8f5b3a7f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: var(--secondary);
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        .btn:hover {
+            background-color: #ffc845;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent);
+        }
+
+        .section-title p {
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
             overflow: hidden;
-            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
-        
-        #thumbnail {
+
+        .about-image img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .donation-process {
+            background-color: var(--light);
+        }
+
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .step {
+            flex: 1;
+            min-width: 250px;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+
+        .step:hover {
+            transform: translateY(-10px);
+        }
+
+        .step-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .step h3 {
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+
+        .donate-section {
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .donate-section .section-title h2 {
+            color: white;
+        }
+
+        .donate-section .section-title p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .qr-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            display: inline-block;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin: 30px 0;
+        }
+
+        .qr-code {
+            width: 250px;
+            height: 250px;
+            margin: 0 auto 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #ddd;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qr-code img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .upi-id {
+            background: var(--light);
+            padding: 10px 20px;
+            border-radius: 50px;
+            display: inline-block;
+            margin: 15px 0;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .transparency {
+            background-color: white;
+        }
+
+        .proof-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .proof-item {
+            background: var(--light);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .proof-image {
+            height: 200px;
+            background: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .proof-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            cursor: pointer;
-            display: block;
         }
-        
-        #thumbnail:hover + .play-button, .play-button:hover {
-            transform: scale(1.1);
+
+        .proof-content {
+            padding: 20px;
         }
-        
-        .play-button {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80px;
-            height: 80px;
-            background-color: rgba(255, 0, 0, 0.8);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            z-index: 2;
+
+        .proof-content h3 {
+            margin-bottom: 10px;
+            color: var(--secondary);
         }
-        
-        .play-button::after {
-            content: "";
-            display: block;
-            width: 0;
-            height: 0;
-            border-top: 15px solid transparent;
-            border-bottom: 15px solid transparent;
-            border-left: 25px solid white;
-            margin-left: 5px;
-        }
-        
-        #youtube-player {
-            width: 100%;
-            height: 100%;
-            display: none;
-        }
-        
-        .video-info {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px 30px;
-        }
-        
-        .video-title {
-            font-size: 22px;
+
+        .proof-date {
+            color: #777;
+            font-size: 0.9rem;
             margin-bottom: 10px;
         }
-        
-        .video-description {
-            color: #aaaaaa;
-            line-height: 1.5;
+
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            padding: 50px 0 20px;
         }
-        
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+
+        .footer-column p, .footer-column a {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 10px;
+            display: block;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: var(--accent);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+        }
+
+        .donation-counter {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            font-weight: bold;
+        }
+
         @media (max-width: 768px) {
-            header {
-                padding: 15px;
+            .header-content {
+                flex-direction: column;
+                text-align: center;
             }
             
-            .video-container {
-                padding: 10px;
+            nav ul {
+                margin-top: 15px;
+                justify-content: center;
             }
             
-            .video-info {
-                padding: 0 15px 20px;
+            nav ul li {
+                margin: 0 10px;
             }
             
-            .play-button {
-                width: 60px;
-                height: 60px;
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .process-steps {
+                flex-direction: column;
+            }
+            
+            .donation-counter {
+                position: static;
+                margin: 20px auto;
+                display: inline-block;
             }
         }
     </style>
 </head>
 <body>
+<!-- Header -->
     <header>
-        <div class="logo">AccidentFootage</div>
-    </header>
-    
-    <div class="video-container">
-        <div class="video-player">
-            <!-- Thumbnail with play button -->
-            <img id="thumbnail" src="https://raw.githubusercontent.com/yourusername/yourrepo/main/rnt.jpg" alt="Video thumbnail">
-            <div class="play-button" id="play-button"></div>
-            
-            <!-- YouTube iframe (hidden initially) -->
-            <iframe 
-                id="youtube-player"
-                width="100%" 
-                height="100%" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen>
-            </iframe>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-hands-helping"></i>
+                    <span>Hope for Palestine</span>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#process">How It Works</a></li>
+                        <li><a href="#donate">Donate</a></li>
+                        <li><a href="#transparency">Transparency</a></li>
+                    </ul>
+                </nav>
+            </div>
         </div>
-    </div>
-    
-    <div class="video-info">
-        <h1 class="video-title">Accident Footage - Highway Collision</h1>
-        <p class="video-description">
-            Dashcam footage of a multi-vehicle collision captured on I-95. 
-            This video is for educational purposes only.
-        </p>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-background">
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <h1>Help Us Support the People of Palestine</h1>
+            <p>Your donation can provide essential aid, medical supplies, and hope to those affected by the ongoing crisis. Every contribution makes a difference.</p>
+            <a href="#donate" class="btn">Donate Now</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>About Our Initiative</h2>
+                <p>Learn about our mission and how your support helps provide critical aid to Palestinian families</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Direct Support for Palestinian Families</h3>
+                    <p>We are a group of concerned Indian citizens collecting donations to provide direct humanitarian aid to the people of Palestine. Our mission is to channel resources to where they're needed most during this critical time.</p>
+                    <p>All funds collected are used to support verified aid organizations working on the ground in Palestine, providing medical assistance, food supplies, shelter, and other essential resources to affected families.</p>
+                    <p>We believe in complete transparency and will provide regular updates on how your donations are being used to make a real difference.</p>
+                    <a href="#process" class="btn" style="margin-top: 20px;">Our Process</a>
+                </div>
+                <div class="about-image">
+                    <img src="about-image.png" alt="Humanitarian aid for Palestine">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Donation Process -->
+    <section class="donation-process" id="process">
+        <div class="container">
+            <div class="section-title">
+                <h2>How It Works</h2>
+                <p>Our transparent process ensures your donation reaches those in need</p>
+            </div>
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
+                    <h3>Scan & Donate</h3>
+                    <p>Use any UPI app to scan our QR code and make your donation securely</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-hand-holding-usd"></i>
+                    </div>
+                    <h3>We Collect Funds</h3>
+                    <p>All donations are collected in a dedicated account for Palestine relief</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-share-alt"></i>
+                    </div>
+                    <h3>Transfer to Aid Groups</h3>
+                    <p>Funds are transferred to verified organizations working in Palestine</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon">
+                        <i class="fas fa-receipt"></i>
+                    </div>
+                    <h3>Share Proof</h3>
+                    <p>We provide transparent updates and transaction proofs</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Donate Section -->
+    <section class="donate-section" id="donate">
+        <div class="container">
+            <div class="section-title">
+                <h2>Donate Now</h2>
+                <p>Your contribution can provide hope and essential aid to those in need</p>
+            </div>
+            <div class="qr-container">
+                <div class="qr-code">
+                    <!-- Your QR Code Image -->
+                    <img src="h2.jpg" alt="UPI QR Code for Donation">
+                </div>
+                <p>Scan with any UPI app to donate</p>
+                <div class="upi-id">krishnakamble112@ybl</div>
+                <p>Verify this UPI ID before donating</p>
+            </div>
+            <p style="max-width: 600px; margin: 0 auto;">For any questions about the donation process or to verify our initiative, please contact us at <strong>contact@hopeforpalestine.org</strong></p>
+        </div>
+    </section>
+
+    <!-- Transparency Section -->
+    <section class="transparency" id="transparency">
+        <div class="container">
+            <div class="section-title">
+                <h2>Transparency & Updates</h2>
+                <p>We believe in complete transparency. Here's how your donations are making a difference</p>
+            </div>
+            <div class="proof-grid">
+                <div class="proof-item">
+                    <div class="proof-image">
+                        <img src="proof1.png" alt="Medical supplies donation proof">
+                    </div>
+                    <div class="proof-content">
+                        <div class="proof-date">November 15, 2023</div>
+                        <h3>Medical Supplies Donation</h3>
+                        <p>₹25,000 transferred to Medical Aid for Palestinians for emergency medical kits</p>
+                    </div>
+                </div>
+                <div class="proof-item">
+                    <div class="proof-image">
+                        <img src="proof2.png" alt="Food aid distribution proof">
+                    </div>
+                    <div class="proof-content">
+                        <div class="proof-date">November 8, 2023</div>
+                        <h3>Food Aid Distribution</h3>
+                        <p>₹18,500 used to provide food packages for 50 families in Gaza</p>
+                    </div>
+                </div>
+                <div class="proof-item">
+                    <div class="proof-image">
+                        <img src="proof3.png" alt="Shelter support proof">
+                    </div>
+                    <div class="proof-content">
+                        <div class="proof-date">November 1, 2023</div>
+                        <h3>Emergency Shelter Support</h3>
+                        <p>₹32,000 contributed to UNRWA for emergency shelter materials</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Hope for Palestine</h3>
+                    <p>An initiative by concerned Indian citizens to provide humanitarian aid to the people of Palestine.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <a href="#home">Home</a>
+                    <a href="#about">About Us</a>
+                    <a href="#process">How It Works</a>
+                    <a href="#donate">Donate</a>
+                    <a href="#transparency">Transparency</a>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-envelope"></i> contact@hopeforpalestine.org</p>
+                    <p><i class="fas fa-phone"></i> +91 XXXXX XXXXX</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Mumbai, India</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Hope for Palestine. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Donation Counter -->
+    <div class="donation-counter">
+        <i class="fas fa-heart" style="margin-right: 5px;"></i> 
+        <span id="donationAmount">₹12,457</span>+ Donated
     </div>
 
     <script>
-        // Replace these with your actual values
-        const YOUTUBE_VIDEO_ID = 'YOUR_VIDEO_ID';
-        const THUMBNAIL_URL = 'https://raw.githubusercontent.com/yourusername/yourrepo/main/rnt.jpg';
-        
-        // Get elements
-        const thumbnail = document.getElementById('thumbnail');
-        const playButton = document.getElementById('play-button');
-        const youtubePlayer = document.getElementById('youtube-player');
-        
-        // Set thumbnail source
-        thumbnail.src = THUMBNAIL_URL;
-        
-        // When user clicks to play
-        function playVideo() {
-            // Hide thumbnail and play button
-            thumbnail.style.display = 'none';
-            playButton.style.display = 'none';
-            
-            // Show and load YouTube player
-            youtubePlayer.style.display = 'block';
-            youtubePlayer.src = `https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=1&controls=1&modestbranding=1&rel=0`;
-        }
-        
-        // Add click events
-        thumbnail.addEventListener('click', playVideo);
-        playButton.addEventListener('click', playVideo);
-        
-        // Optional: Preload thumbnail for better UX
-        window.addEventListener('load', function() {
-            const img = new Image();
-            img.src = THUMBNAIL_URL;
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                window.scrollTo({
+                    top: targetSection.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
         });
+
+        // Simple donation counter (for demonstration)
+        let donationCount = 12457;
+        const donationElement = document.getElementById('donationAmount');
+        
+        // Update donation count periodically (for demo)
+        setInterval(() => {
+            donationCount += Math.floor(Math.random() * 100);
+            donationElement.textContent = `₹${donationCount.toLocaleString()}`;
+        }, 30000);
     </script>
 </body>
 </html>
